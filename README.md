@@ -5,8 +5,8 @@ A new Flutter project.
 ## Getting Started
 The Feature lists include: User CRUD operations, Notfications and comments.
 This project is a starting point for a Flutter application.
-### Team Members: 
-# Fasil Beshiwork ATR/9359/09
+# Team Members: 
+### Fasil Beshiwork ATR/9359/09
 #Hermela Seyoum ATR/8945/09
 #Iman Ibrahim ATR/6511/09
 #Kulani Melaku ATR/3491/09
