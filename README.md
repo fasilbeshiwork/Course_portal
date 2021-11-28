@@ -3,7 +3,7 @@
 A new Flutter project.
 
 ## Getting Started
-
+The Feature lists include: User CRUD operations, Notfications and comments.
 This project is a starting point for a Flutter application.
 
 A few resources to get you started if this is your first Flutter project:
