@@ -15,30 +15,29 @@ void main() {
 
   final client = MockClient();
 
-  group('Register', () {
+  group('Registration:', () {
     final url = Uri.parse(baseUrl + "/api/register");
-    test('Register Success', () async {
+    test('\nRegister Success', () async {
       when(client.post(url, body: {
-        "name": 'name',
-        'email': 'email',
+        "name": 'gadisa',
+        'email': 'gadisa@gmail.com',
         'password': 'password',
-        'password_confirmation': 'passwordConf',
-        "role": 'role'
+        'password_confirmation': 'password',
+        "role": 'student'
       })).thenAnswer((_) async => http.Response(
-          //here token and user are sent as two key value
-          '{"token":"toooken","user":{"user_id": "1", "rating":"2","first_name": "gadisa","profile_picture":"proP","role":{"role":"student","user_id":"1"} ,"email": "gadisa@gmail.com", "last_name": "asfaw","subjects":{"data":[{ "name": "Mathematics","type":null}]}}}',
+          '{"user":{"id": 2,"name": "gadisa","email":"gadisa@gmail.com","role":{"role":"student","user_id":2}  },"access_token":"token"}',
           200));
       expect(
           await _authApiClient.register(
-              name: 'name',
-              email: 'email',
+              name: 'gadisa',
+              email: 'gadisa@gmail.com',
               password: 'password',
-              passwordConf: 'passwordConf',
-              role: 'role',
+              passwordConf: 'password',
+              role: 'student',
               client: client),
           isA<User>());
     });
-    test('Register Failure', () {
+    test('\nRegister Failure', () {
       when(client.post(url, body: {
         "name": 'name',
         'email': 'email',
@@ -54,6 +53,28 @@ void main() {
               passwordConf: 'passwordConf',
               role: 'role',
               client: client),
+          throwsException);
+    });
+  });
+  group('login:', () {
+    final url = Uri.parse(baseUrl + "/api/login");
+    test('\nLogin Success', () async {
+      when(client.post(url, body: {
+        'email': 'g@gmail.com',
+        'password': 'aa123'
+      })).thenAnswer((_) async => http.Response(
+          //here token and user are sent as two key value
+          '{"user":{"id": 2,"name": "gadisa","email":"gadisa@gmail.com","role":{"role":"student","user_id":2}  },"access_token":"token"}',
+          200));
+      expect(await _authApiClient.logIn("g@gmail.com", "aa123", client),
+          isA<User>());
+    });
+
+    test('\nLogin Failure', () {
+      when(client
+              .post(url, body: {'email': 'g@gmail.com', 'password': 'wrong11'}))
+          .thenAnswer((_) async => http.Response('Not Found', 404));
+      expect(_authApiClient.logIn('g@gmail.com', 'wrong11', client),
           throwsException);
     });
   });
